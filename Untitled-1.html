@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact List UI</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #0F1016;
+      color: white;
+    }
+
+    /* Header section */
+    .header {
+      background-color: #A95BD4;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .header h1 {
+      color: black;
+      font-family: 'Praise', sans-serif;
+      font-size: 24px;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    /* Tab buttons */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .tab {
+      background-color: #A95BD4;
+      color: black;
+      padding: 10px 20px;
+      border-radius: 5px 5px 0 0;
+      margin-right: 15px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .tab:hover, .tab.active {
+      background-color: #BA7DD9;
+    }
+
+    /* Search section */
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background-color: #2D2F3A;
+      border-radius: 5px;
+      padding: 5px;
+      width: 60%;
+      max-width: 600px;
+    }
+
+    .search-box input {
+      background: transparent;
+      border: none;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search-box button {
+      background-color: #A95BD4;
+      border: none;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 25%;
+      margin-left: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .search-box button:hover {
+      background-color: #BA7DD9;
+    }
+
+    .clear-btn {
+      background-color: #4D4D4D;
+      border: none;
+      padding: 10px;
+      border-radius: 25%;
+      color: white;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+    .filter-btn {
+    background-color: #A95BD4;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.filter-btn:hover {
+  background-color: #5F5F5F;
+}
+
+
+    
+
+    /* Contacts list */
+    .contact-list {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0;
+      list-style: none;
+    }
+
+    .contact-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #444;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact-item:hover {
+      background-color: #2D2F3A;
+    }
+
+    .contact-item .name {
+      font-weight: bold;
+      color: white;
+    }
+
+    .contact-item .email {
+      font-size: 14px;
+      color: #888;
+    }
+
+    .contact-item .arrow {
+      font-size: 18px;
+      color: #888;
+    }
+
+    /* Add Contact Button */
+.add-contact-btn {
+  background-color: #A95BD4;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.add-contact-btn:hover {
+  background-color: #BA7DD9;
+}
+
+/* Modal Structure */
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Black background with opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #1F2028;
+  margin: 15% auto; /* 15% from top and centered */
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+/* Form Elements */
+.modal-content h2 {
+  color: #BA7DD9;
+  text-align: center;
+  font-size: 20px;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #2D2F3A;
+  color: white;
+}
+
+.modal-content input::placeholder {
+  color: #888;
+}
+
+/* Add Button in Modal */
+.add-btn {
+  background-color: #A95BD4;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-btn:hover {
+  background-color: #BA7DD9;
+}
+
+/* Close Button */
+.close-btn {
+  color: white;
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: -10px;
+}
+
+.close-btn:hover {
+  color: #BA7DD9;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <div class="header">
+    <h1>contacts</h1>
+  </div>
+
+  <!-- Tab Section -->
+  <div class="tabs">
+    <div class="tab active">NAME</div>
+    <div class="tab">NAME + EMAIL</div>
+    <div class="tab">CUSTOM</div>
+  </div>
+
+  <!-- Search Section -->
+  <div class="search-container">
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search name & email" />
+        <button><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 96 960 960" width="20"><path d="M791 930 554 692q-29 26-64.5 39t-74.5 13q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 40-13 74.5T692 554l238 238-139 138ZM415 636q66 0 111-45t45-111q0-66-45-111t-111-45q-66 0-111 45t-45 111q0 66 45 111t111 45Z"/></svg></button>
+        
+        
+      </div>
+      
+  </div>
+  <button class="filter-btn">Filter</button>
+  
+  <!-- Contact List -->
+  <ul class="contact-list" id="contactList">
+    <li class="contact-item">
+      <div>
+        <div class="name">Alexis</div>
+        <div class="email">alexis@meta.com</div>
+      </div>
+      <div class="arrow">&gt;</div>
+    </li>
+    <li class="contact-item">
+      <div>
+        <div class="name">John Doe</div>
+        <div class="email">john.doe@example.com</div>
+      </div>
+      <div class="arrow">&gt;</div>
+    </li>
+    <li class="contact-item">
+      <div>
+        <div class="name">Jane Smith</div>
+        <div class="email">jane.smith@meta.com</div>
+      </div>
+      <div class="arrow">&gt;</div>
+    </li>
+    <li class="contact-item">
+      <div>
+        <div class="name">Michael Label</div>
+        <div class="email">michael.label@meta.com</div>
+      </div>
+      <div class="arrow">&gt;</div>
+    </li>
+  </ul>
+
+  <button class="add-contact-btn">Add Contact</button>
+  <div class="modal" id="addContactModal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>Add Contact</h2>
+      <form id="addContactForm">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Name" required>
+  
+        <label for="age">Age</label>
+        <input type="text" id="age" placeholder="Age" required>
+  
+        <label for="email">Email address</label>
+        <input type="email" id="email" placeholder="Email address" required>
+  
+        <button type="submit" class="add-btn">+ Add</button>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById('searchInput').addEventListener('input', function() {
+      let filter = this.value.toLowerCase();
+      let contacts = document.getElementById('contactList').getElementsByClassName('contact-item');
+  
+      for (let i = 0; i < contacts.length; i++) {
+        let name = contacts[i].getElementsByClassName('name')[0].textContent.toLowerCase();
+        let email = contacts[i].getElementsByClassName('email')[0].textContent.toLowerCase();
+  
+        if (name.includes(filter) || email.includes(filter)) {
+          contacts[i].style.display = '';
+        } else {
+          contacts[i].style.display = 'none';
+        }
+      }
+    });
+  
+    // Clear button functionality
+    document.querySelector('.clear-btn').addEventListener('click', function() {
+      document.getElementById('searchInput').value = '';
+      let contacts = document.getElementById('contactList').getElementsByClassName('contact-item');
+      for (let i = 0; i < contacts.length; i++) {
+        contacts[i].style.display = '';
+      }
+    });
+  </script>
+  <script>
+    // Get modal element
+    const modal = document.getElementById('addContactModal');
+    const addContactBtn = document.querySelector('.add-contact-btn');
+    const closeBtn = document.querySelector('.close-btn');
+  
+    // Show modal when 'Add Contact' is clicked
+    addContactBtn.addEventListener('click', function() {
+      modal.style.display = 'block';
+    });
+  
+    // Close modal when '×' is clicked
+    closeBtn.addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+  
+    // Close modal when clicking outside of the modal
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  
+    // Handle form submission to add contact
+    document.getElementById('addContactForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form from reloading the page
+      
+      // Get input values
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+      const email = document.getElementById('email').value;
+  
+      // Create new contact element
+      const newContact = `
+        <li class="contact-item">
+          <div>
+            <div class="name">${name}</div>
+            <div class="email">${email}</div>
+          </div>
+          <div class="arrow">&gt;</div>
+        </li>
+      `;
+  
+      // Add new contact to the contact list
+      document.getElementById('contactList').innerHTML += newContact;
+  
+      // Reset form fields
+      document.getElementById('addContactForm').reset();
+  
+      // Close modal
+      modal.style.display = 'none';
+    });
+  </script>
+  
+</body>
+</html>
